@@ -4,7 +4,7 @@ import { FaInstagram, FaXTwitter, FaTiktok, FaYoutube } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer>
-      <div className="mt-5 bg-blue-600 font-pop">
+      <div className="mt-5 bg-lppm font-pop">
         <div className="container p-4 mx-auto">
           <div className="flex flex-wrap">
             <div className="w-full p-2 mb-7 text-white font-medium md:w-1/2 lg:w-1/4">

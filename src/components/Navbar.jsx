@@ -63,10 +63,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-full h-20 lg:mb-4 lg:h-28 lg:sticky lg:top-0">
-      <nav className="w-full p-4 gap-2 items-center bg-blue-600">
+    <header className="w-full h-20 lg:mb-4 lg:h-28 lg:sticky lg:top-0 z-50">
+      <nav className="w-full p-4 gap-2 items-center bg-lppm">
         <div className="flex relative justify-between">
-          <div className="mt-3 mr-2 lg:hidden">
+          <div className="mt-3 mr-2 lg:hidden text-white">
             <button onClick={handleOpen}>
               {isOpen ? <MdClose size={"32px"} /> : <MdDehaze size={"32px"} />}
             </button>

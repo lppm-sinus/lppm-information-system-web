@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 const TentangMenu = (props) => {
   const navItemsTentang = [
     { path: "/tentang/sejarah", title: "Sejarah" },
-    { path: "/tentang/program", title: "Program & Kebijakan" },
-    { path: "/tentang/visimisi", title: "Visi & Misi" },
+    { path: "/tentang/program&kebijakan", title: "Program & Kebijakan" },
+    { path: "/tentang/visi-misi", title: "Visi & Misi" },
     { path: "/tentang/struktur", title: "Struktur" },
   ];
 
