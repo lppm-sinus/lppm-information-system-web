@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { ImageSlider } from "../../assets/ImageMenu";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -27,7 +28,7 @@ const Banner = () => {
       >
         <div className="relative bg-gradient-to-b from-transparent to-gray-900 h-full">
           <div className="absolute inset-x-0 bottom-0">
-            <div className="p-2 md:p-4 text-white">
+            <div className="p-2 md:p-4 md:px-10 lg:px-20 text-white">
               <p className="font-semibold text-sm md:text-base">
                 Selamat Datang di Situs Resmi
               </p>
@@ -38,10 +39,14 @@ const Banner = () => {
                 <p className="text-xs md:text-sm font-semibold">
                   STIMIK Sinar Nusantara
                 </p>
-                <div className="flex items-end justify-end text-white">
-                  <div className="rounded-xl flex items-center bg-blue-900 p-2">
-                    <button>About</button>
-                    <FaAngleRight />
+                <div className="w-auto flex items-end justify-end text-white">
+                  <div className="rounded-xl bg-white p-2">
+                    <Link to={"/tentang"}>
+                      <div className="flex items-center text-lppm gap-2">
+                        <button>Tentang Kami</button>
+                        <FaAngleRight />
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </div>

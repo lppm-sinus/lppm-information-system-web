@@ -1,12 +1,12 @@
 import KinerjaMenu from "../../components/molecules/KinerjaMenu";
 import { Link } from "react-router-dom";
+import { DataKinerjaPublikasi } from "@/assets/DataKinerjaPublikasi";
 import { useState } from "react";
 import DropdownKin from "../../components/molecules/DropdownKin";
-import { DataKinerjaPenelitian } from "../../assets/DataKinerjaPenelitian";
 import TableKin from "@/components/molecules/TableKin";
 import ChartKin from "@/components/molecules/ChartKin";
 
-const KPenelitian = () => {
+const Buku = () => {
   const [valueProdi, setValueProdi] = useState("Informatika");
   const [valueYear, setValueYear] = useState("2024");
   const DataProdi = [
@@ -31,7 +31,7 @@ const KPenelitian = () => {
         <Link to={"/kinerja"} className="font-semibold text-2xl">
           <h1 className="text-center">Kinerja</h1>
         </Link>
-        <div className="flex flex-wrap justify-center gap-5 items-center text-sm md:text-base mt-5">
+        <div className="flex flex-wrap justify-center gap-5 items-center mt-5">
           <KinerjaMenu />
         </div>
         <div className="mt-10">
@@ -46,8 +46,7 @@ const KPenelitian = () => {
                 {valueProdi}
               </p>
               <div className="mt-5 p-1 md:p-2 inline-block w-full">
-                <TableKin data={DataKinerjaPenelitian} />
-                {/* Table yang ada biaya harus ada biaya tidak boleh dicampur sama yang tidak ada biaya */}
+                <TableKin data={DataKinerjaPublikasi} />
               </div>
             </div>
           </div>
@@ -61,7 +60,7 @@ const KPenelitian = () => {
               </p>
               <div className="inline-block w-full">
                 <ChartKin
-                  data={DataKinerjaPenelitian}
+                  data={DataKinerjaPublikasi}
                   dataKey="total"
                   label="prodi"
                 />
@@ -74,4 +73,4 @@ const KPenelitian = () => {
   );
 };
 
-export default KPenelitian;
+export default Buku;

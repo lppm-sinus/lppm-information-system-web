@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { MdDehaze, MdClose } from "react-icons/md";
 import Logo from "../../src/assets/logo.png";
-import { ButtonDropRight, ButtonUpDrop } from "./atoms/DropDown";
+import { ButtonUpDrop } from "./atoms/DropDown";
+import Medsos from "./atoms/Medsos";
 import { SearchBar } from "./atoms/SearchBar";
-import KinerjaMenu from "./molecules/KinerjaMenu";
 import LayananMenu from "./molecules/LayananMenu";
 import { Navitems } from "./molecules/NavItems";
-import PublikasiMenu from "./molecules/PublikasiMenu";
 import TentangMenu from "./molecules/TentangMenu";
 
 const Navbar = () => {
@@ -19,80 +18,81 @@ const Navbar = () => {
   const handleOpenAbout = () => {
     setIsOpenAbout(!isOpenAbout);
     setIsOpenService(false);
-    setIsOpenPub(false);
-    setIsOpenKin(false);
-    setIsOpenInt(false);
   };
 
   const [isOpenService, setIsOpenService] = useState(false);
   const handleOpenService = () => {
     setIsOpenService(!isOpenService);
     setIsOpenAbout(false);
-    setIsOpenPub(false);
-    setIsOpenKin(false);
-    setIsOpenInt(false);
-  };
-
-  const [isOpenPub, setIsOpenPub] = useState(false);
-  const handleOpenPub = () => {
-    setIsOpenPub(!isOpenPub);
-    setIsOpenAbout(false);
-    setIsOpenService(false);
-    setIsOpenKin(false);
-    setIsOpenInt(false);
-  };
-  const [isOpenKin, setIsOpenKin] = useState(false);
-  const handleOpenKin = () => {
-    setIsOpenKin(!isOpenKin);
-    setIsOpenAbout(false);
-    setIsOpenService(false);
-    setIsOpenPub(false);
-    setIsOpenInt(false);
-  };
-  const [isOpenInt, setIsOpenInt] = useState(false);
-  const handleOpenInt = () => {
-    setIsOpenInt(!isOpenInt);
   };
 
   const handleReset = () => {
     setIsOpenAbout(false);
     setIsOpenService(false);
-    setIsOpenPub(false);
-    setIsOpenKin(false);
-    setIsOpenInt(false);
   };
 
+  const DataMedia = [
+    {
+      id: 1,
+      url: "https://www.instagram.com/stmik_sinarnusantara/",
+      icon: "FaInstagram",
+      title: "@stmik_sinarnusantara",
+    },
+    {
+      id: 2,
+      url: "https://www.tiktok.com/@stmiksinus",
+      icon: "FaTiktok",
+      title: "@stmiksinus",
+    },
+    {
+      id: 3,
+      url: "https://www.youtube.com/@stmiksinarnusantaraofficia141",
+      icon: "FaYoutube",
+      title: "@stmiksinarnusantaraofficia141",
+    },
+  ];
+
   return (
-    <header className="w-full h-20 lg:mb-4 lg:h-28 lg:sticky lg:top-0 z-50">
-      <nav className="w-full p-4 gap-2 items-center bg-lppm">
-        <div className="flex relative justify-between">
-          <div className="mt-3 mr-2 lg:hidden text-white">
+    <header className="w-full h-20 lg:h-28 lg:sticky lg:top-0 z-50">
+      <nav className="w-full pt-4 pb-4 lg:pb-0 gap-2 items-center bg-lppm lg:bg-white">
+        <div className="flex relative justify-between bg-lppm lg:bg-white w-full h-full">
+          <div className="mt-3 mx-2 lg:hidden text-white">
             <button onClick={handleOpen}>
               {isOpen ? <MdClose size={"32px"} /> : <MdDehaze size={"32px"} />}
             </button>
           </div>
           <div className="w-full font-pop">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center ml-2 gap-2">
+            <div className="flex w-full lg:px-16 items-center justify-between">
+              <div className="flex lg:w-3/4 items-center ml-2 gap-2">
                 <img
                   src={Logo}
                   alt="Logo STIMIK Sinar Nusantara"
                   className="size-12"
                 />
-                <div className="text-white">
+                <div className="text-white lg:text-black">
                   <p className="text-[12px] md:text-base lg:text-lg">
                     LEMBAGA PENELITIAN DAN PENGABDIAN MASYARAKAT
                   </p>
                   <p className="text-[10px] md:text-sm lg:text-base">
-                    STIMIK SINAR NUSANTARA SURAKARTA
+                    <span>UNIVERSITAS</span> <span> TIGA SERANGKAI</span>
                   </p>
                 </div>
               </div>
-              <div className="hidden lg:block">
-                <SearchBar />
+              <div className="hidden lg:flex">
+                {DataMedia.map((item) => (
+                  <div className="w-full flex justify-center">
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      className="mr-2 w-10 h-10 flex justify-center items-center rounded-full border text-lppm border-lppm hover:text-white hover:bg-lppm"
+                    >
+                      <Medsos iconName={item.icon} />
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="w-full hidden lg:block border-t border-slate-600 mt-4 text-white">
+            <div className="w-full pb-4 pt-1 hidden lg:block border-t border-slate-600 mt-4 text-white bg-lppm">
               <div className="mt-2 flex justify-center items-center">
                 <div className="mx-7">
                   <Navitems link="/" OnClick={handleReset} title="Beranda" />
@@ -157,56 +157,16 @@ const Navbar = () => {
                       OnClick={handleReset}
                       title="Publikasi"
                     />
-                    <ButtonUpDrop action={handleOpenPub} state={isOpenPub} />
-                    {isOpenPub && (
-                      <div className="fixed mt-10 w-40 h-auto bg-slate-50 rounded-b-lg">
-                        <PublikasiMenu
-                          state={isOpenPub}
-                          action={handleOpenPub}
-                        />
-                      </div>
-                    )}
                   </div>
                 </div>
 
                 <div className="mx-7">
                   <div className="flex relatice gap-2">
                     <Navitems
-                      link="/kinerja"
+                      link="/kinerja-penelitian"
                       OnClick={handleReset}
                       title="Kinerja"
                     />
-                    <ButtonUpDrop action={handleOpenKin} state={isOpenKin} />
-                    {isOpenKin && (
-                      <div className="fixed mt-10 w-56 h-auto bg-slate-50 rounded-b-lg">
-                        <KinerjaMenu action={handleOpenKin} />
-                        <div className="flex justify-between p-2 border-b border-slate-400 text-black">
-                          <div onClick={handleOpenKin}>
-                            <Navitems
-                              link="/kinerja/kekayaan-intelektual"
-                              title="Kekayaan Intelektual"
-                            />
-                          </div>
-                          <ButtonDropRight
-                            action={handleOpenInt}
-                            state={isOpenInt}
-                          />
-                        </div>
-                        {isOpenInt && (
-                          <div
-                            onClick={handleReset}
-                            className="fixed right-2 w-36 top-[252px] bg-slate-50 rounded-lg"
-                          >
-                            <div className="w-full p-2 border-b border-slate-400 text-black">
-                              <Navitems
-                                link="/kinerja/hak-cipta"
-                                title="Hak Cipta"
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -225,8 +185,6 @@ const Navbar = () => {
       {isOpen && (
         <div className="w-full h-full bg-white absolute z-10 font-pop">
           <div className="px-4 py-3 bg-white container mx-auto">
-            <SearchBar />
-
             <div className="p-2 border-b border-slate-400">
               <Navitems link="/" OnClick={handleOpen} title="Beranda" />
             </div>
@@ -265,42 +223,15 @@ const Navbar = () => {
                 OnClick={handleOpen}
                 title="Publikasi"
               />
-              <ButtonUpDrop action={handleOpenPub} state={isOpenPub} />
             </div>
-            <PublikasiMenu
-              state={isOpenPub}
-              action={handleOpenPub}
-              OnClick={handleOpen}
-            />
 
             <div className="flex justify-between p-2 border-b border-slate-400">
-              <Navitems link="/kinerja" OnClick={handleOpen} title="Kinerja" />
-              <ButtonUpDrop action={handleOpenKin} state={isOpenKin} />
+              <Navitems
+                link="/kinerja-penelitian"
+                OnClick={handleOpen}
+                title="Kinerja"
+              />
             </div>
-            {isOpenKin && (
-              <div className="w-full p-2">
-                <KinerjaMenu action={handleOpenKin} OnClick={handleOpen} />
-                <div className="flex justify-between p-2 border-b border-slate-400">
-                  <Navitems
-                    link="/kinerja/kekayaan-intelektual"
-                    OnClick={handleOpen}
-                    title="Kekayaan Intelektual"
-                  />
-                  <ButtonUpDrop action={handleOpenInt} state={isOpenInt} />
-                </div>
-                {isOpenInt && (
-                  <div className="w-full p-2 ml-2">
-                    <div className="border-b border-slate-400">
-                      <Navitems
-                        link="/kinerja/hak-cipta"
-                        OnClick={handleOpen}
-                        title="Hak Cipta"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
 
             <div className="p-2 border-b border-slate-400">
               <Navitems link="/dokumen" OnClick={handleOpen} title="Dokumen" />

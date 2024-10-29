@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 
 const KinerjaMenu = (props) => {
   const navItemsKinerja = [
-    { path: "/kinerja/kinerja-penelitian", title: "Penelitian" },
-    { path: "/kinerja/kinerja-pengabdian", title: "Pengabdian" },
-    { path: "/kinerja/kinerja-publikasi", title: "Publikasi" },
+    { path: "/kinerja-penelitian", title: "Penelitian" },
+    { path: "/kinerja-pengabdian", title: "Pengabdian" },
+    { path: "/kinerja-publikasi", title: "Publikasi" },
+    { path: "/kekayaan-intelektual", title: "Kekayaan Intelektual" },
+    { path: "/kinerja-buku", title: "Buku" },
   ];
 
   return (
@@ -15,15 +17,14 @@ const KinerjaMenu = (props) => {
           key={index}
           to={item.path}
           className={({ isActive }) =>
-            isActive ? "text-black font-bold block" : "text-black"
+            isActive
+              ? "text-white bg-blue-700 rounded-md font-bold"
+              : "text-slate-400 font-semibold"
           }
         >
-          <div
-            className="p-2 border-b border-slate-400"
-            onClick={props.OnClick}
-          >
+          <p className="p-2" onClick={props.OnClick}>
             {item.title}
-          </div>
+          </p>
         </NavLink>
       ))}
     </>

@@ -1,0 +1,42 @@
+export const DataKinerjaPenelitian = [
+  {
+    prodi: "Informatika",
+    year: 2024,
+    title: "DRTM",
+    amount: 10,
+    total: 110,
+    cost: 110000,
+  },
+  {
+    prodi: "Sistem Informasi",
+    year: 2024,
+    title: "Kerjasama",
+    amount: 10,
+    total: 120,
+    cost: 120000,
+  },
+  {
+    prodi: "Teknik Informatika",
+    year: 2024,
+    title: "Mandiri",
+    amount: 10,
+    total: 115,
+    cost: 130000,
+  },
+  {
+    prodi: "Sistem Informasi D3",
+    amount: 10,
+    year: 2024,
+    title: "Internal",
+    total: 90,
+    cost: 140000,
+  },
+  {
+    prodi: "Sitem Informasi Akuntansi",
+    year: 2024,
+    title: "Apa Kek",
+    amount: 10,
+    total: 80,
+    cost: 150000,
+  },
+];
