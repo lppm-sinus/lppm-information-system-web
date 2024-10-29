@@ -1,52 +1,43 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { ViMiItems } from "../../assets/DataTentang";
+
 const ViMi = () => {
+  const [vimi, setVimi] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://192.168.1.5:8000/api/posts/visi-misi");
+      const response = await res.json();
+      setVimi(response.data);
+    };
+    fetchData();
+    setLoading(false);
+    console.log(vimi);
+  }, []);
+
+  const PageTitle = vimi.length ? vimi[0].page_title : "";
+
   return (
     <div className="w-full h-full lg:mt-10 font-pop">
-      <div className="w-full h-full p-4 container m-auto">
-        <div className="my-5">
-          <h1 className="font-semibold text-2xl text-center">Visi</h1>
-          <p className="mt-4 text-justify">
-            Menjadi lembaga terkemuka dalam penelitian dan pengabdian
-            masyarakat, yang mampu memberikan solusi inovatif untuk permasalahan
-            sosial dan lingkungan.Menjadi lembaga terkemuka dalam penelitian dan
-            pengabdian masyarakat, yang mampu memberikan solusi inovatif untuk
-            permasalahan sosial dan lingkungan. Menjadi lembaga terkemuka dalam
-            penelitian dan pengabdian masyarakat, yang mampu memberikan solusi
-            inovatif untuk permasalahan sosial dan lingkungan.Menjadi lembaga
-            terkemuka dalam penelitian dan pengabdian masyarakat, yang mampu
-            memberikan solusi inovatif untuk permasalahan sosial dan
-            lingkungan.Menjadi lembaga terkemuka dalam penelitian dan pengabdian
-            masyarakat, yang mampu memberikan solusi inovatif untuk permasalahan
-            sosial dan lingkungan. Menjadi lembaga terkemuka dalam penelitian
-            dan pengabdian masyarakat, yang mampu memberikan solusi inovatif
-            untuk permasalahan sosial dan lingkungan.
-          </p>
-        </div>
-        <div className="mt-10">
-          <h1 className="font-semibold text-2xl text-center">Misi</h1>
-          <p className="mt-4 text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            hendrerit massa ut sapien rhoncus, in aliquet elit tristique. Morbi
-            quis ipsum placerat nunc vehicula faucibus. Maecenas iaculis sodales
-            risus vel viverra. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Integer hendrerit massa ut sapien rhoncus, in
-            aliquet elit tristique. Morbi quis ipsum placerat nunc vehicula
-            faucibus.
-          </p>
-          <div className="mt-2 p-2">
-            <p>
-              1. Mengembangkan penelitian berkualitas tinggi yang berfokus pada
-              kebutuhan masyarakat.
-            </p>
-            <p>
-              2. Melaksanakan program pengabdian yang berorientasi pada
-              pemberdayaan dan kesejahteraan masyarakat.
-            </p>
-            <p>
-              3. Membangun kolaborasi dengan berbagai pihak untuk menciptakan
-              dampak yang lebih luas.
-            </p>
-          </div>
-        </div>
+      <div className="w-full h-full p-4 lg:px-20">
+        {loading ? (
+          <>Loading...</>
+        ) : (
+          <>
+            {vimi.map((item, index) => (
+              <div key={index}>
+                <div className="my-5">
+                  <h1 className="font-semibold text-2xl text-center">
+                    {item.title}
+                  </h1>
+                  <p className="mt-4 text-justify">{item.container}</p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

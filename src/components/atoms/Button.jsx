@@ -1,7 +1,10 @@
-const Button = (props) => {
+const Button = ({ text, bgcolor, txtcolor, icon, position, justify, item }) => {
   return (
-    <button className="w-full p-2 bg-lppm text-white rounded-lg">
-      <p>{props.button}</p>
+    <button
+      className={`w-full ${position} ${justify} ${item} p-2 rounded-lg ${bgcolor} ${txtcolor} `}
+    >
+      <p>{text}</p>
+      {icon ? <span>{icon}</span> : ""}
     </button>
   );
 };
