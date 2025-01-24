@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDehaze, MdClose } from "react-icons/md";
 import Logo from "../../src/assets/logo.png";
 import { ButtonUpDrop } from "./atoms/DropDown";
-import Medsos from "./atoms/Medsos";
-import { SearchBar } from "./atoms/SearchBar";
 import LayananMenu from "./molecules/LayananMenu";
 import { Navitems } from "./molecules/NavItems";
 import TentangMenu from "./molecules/TentangMenu";
+import axios from "axios";
 
 const Navbar = () => {
+  const [sosialMedia, setSosialMedia] = useState([]);
+  const [logo, setLogo] = useState([]);
+
+  const fetchDataSosmed = async () => {
+    try {
+      const res = await axios.get("/api/settings/by-category/social_media");
+      // console.log(res);
+      setSosialMedia(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchDataLogo = async () => {
+    try {
+      // console.log(res);
+      const res = await axios.get("/api/settings/by-category/logo_header");
+      setLogo(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -52,47 +73,62 @@ const Navbar = () => {
     },
   ];
 
+  useEffect(() => {
+    fetchDataSosmed();
+    fetchDataLogo();
+  }, []);
+
   return (
     <header className="w-full h-20 lg:h-28 lg:sticky lg:top-0 z-50">
-      <nav className="w-full pt-4 pb-4 lg:pb-0 gap-2 items-center bg-lppm lg:bg-white">
+      <nav className="w-full pt-4 pb-4 lg:pb-0 gap-2 items-center bg-lppm_premier lg:bg-white">
         <div className="flex relative justify-between bg-lppm lg:bg-white w-full h-full">
-          <div className="mt-3 mx-2 lg:hidden text-white">
+          <div className="mt-3 mr-2 ml-4 md:ml-8 lg:hidden text-white">
             <button onClick={handleOpen}>
               {isOpen ? <MdClose size={"32px"} /> : <MdDehaze size={"32px"} />}
             </button>
           </div>
           <div className="w-full font-pop">
             <div className="flex w-full lg:px-16 items-center justify-between">
-              <div className="flex lg:w-3/4 items-center ml-2 gap-2">
-                <img
-                  src={Logo}
-                  alt="Logo STIMIK Sinar Nusantara"
-                  className="size-12"
-                />
-                <div className="text-white lg:text-black">
-                  <p className="text-[12px] md:text-base lg:text-lg">
-                    LEMBAGA PENELITIAN DAN PENGABDIAN MASYARAKAT
-                  </p>
-                  <p className="text-[10px] md:text-sm lg:text-base">
-                    <span>UNIVERSITAS</span> <span> TIGA SERANGKAI</span>
-                  </p>
+              {logo.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex lg:w-3/4 items-center ml-2 gap-2"
+                >
+                  <img
+                    src={`/api/storage/${item?.image_path}`}
+                    alt="Logo STIMIK Sinar Nusantara"
+                    className="size-10"
+                  />
+                  <div className="text-white font-bold lg:text-black">
+                    <p className="text-[12px] md:text-base">
+                      {item?.description}
+                    </p>
+                    <p className="text-[10px] md:text-sm lg:text-base">
+                      {item?.name}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ))}
               <div className="hidden lg:flex">
-                {DataMedia.map((item) => (
-                  <div className="w-full flex justify-center">
+                {sosialMedia.map((item) => (
+                  <div className="w-full flex justify-center" key={item.id}>
                     <a
-                      href={item.url}
+                      href={item.link_url}
                       target="_blank"
-                      className="mr-2 w-10 h-10 flex justify-center items-center rounded-full border text-lppm border-lppm hover:text-white hover:bg-lppm"
+                      className="mr-2 group w-10 h-10 flex justify-center items-center rounded-full border text-lppm_premier border-lppm_premier hover:text-white hover:bg-lppm_premier transition-all duration-150 overflow-hidden"
                     >
-                      <Medsos iconName={item.icon} />
+                      <span className="w-10 h-10 p-2.5 bg-white group-hover:bg-lppm_sekunder group-hover:text-lppm_premier transition delay-100 rounded-full text-black">
+                        <img
+                          src={`/api/storage/${item.image_path}`}
+                          alt="Sosial Media Logo"
+                        />
+                      </span>
                     </a>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="w-full pb-4 pt-1 hidden lg:block border-t border-slate-600 mt-4 text-white bg-lppm">
+            <div className="w-full pb-4 px-20 pt-1 hidden lg:block border-t border-slate-600 mt-4 text-white bg-lppm_premier">
               <div className="mt-2 flex justify-center items-center">
                 <div className="mx-7">
                   <Navitems link="/" OnClick={handleReset} title="Beranda" />
@@ -110,7 +146,7 @@ const Navbar = () => {
                       state={isOpenAbout}
                     />
                     {isOpenAbout && (
-                      <div className="fixed mt-10 w-40 h-auto bg-slate-50 rounded-b-lg">
+                      <div className="fixed mt-11 w-40 h-auto bg-slate-50 rounded-lg">
                         <TentangMenu
                           state={isOpenAbout}
                           action={handleOpenAbout}
@@ -132,7 +168,7 @@ const Navbar = () => {
                       state={isOpenService}
                     />
                     {isOpenService && (
-                      <div className="fixed mt-10 w-36 h-auto bg-slate-50 rounded-b-lg">
+                      <div className="fixed mt-11 w-40 h-auto bg-slate-50 rounded-lg">
                         <LayananMenu
                           state={isOpenService}
                           action={handleOpenService}

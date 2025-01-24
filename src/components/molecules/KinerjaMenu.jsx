@@ -18,8 +18,8 @@ const KinerjaMenu = (props) => {
           to={item.path}
           className={({ isActive }) =>
             isActive
-              ? "text-white bg-blue-700 rounded-md font-bold"
-              : "text-slate-400 font-semibold"
+              ? "text-white bg-lppm_premier rounded-md font-bold"
+              : "text-lppm_premier font-semibold"
           }
         >
           <p className="p-2" onClick={props.OnClick}>

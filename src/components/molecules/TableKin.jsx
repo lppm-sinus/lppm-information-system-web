@@ -1,42 +1,21 @@
 const TableKin = (props) => {
   return (
     <table className="table-auto border-spacing-2 border-separate w-full">
-      {props.data.map((item, index) => (
-        <tbody key={index} className="border border-slate-600">
-          <tr>
-            {index % 2 === 0 ? (
-              <>
-                <td className="w-1/2 bg-slate-200 rounded-md p-2">
-                  {item.title}
-                </td>
-                <td className="w-1/4 bg-slate-200 rounded-md p-2">
-                  {item.amount}
-                </td>
+      <tbody>
+        {Object.entries(props.data).map(([key, value], index) => (
+          <tr
+            key={index}
+            className="text-sm odd:bg-lppm_premier/5 even:bg-lppm_premier/15 border-b"
+          >
+            <td className="w-1/2 rounded-md p-2">{key}</td>
+            <td className="w-1/4 rounded-md p-2">{value.count}</td>
 
-                {item.cost && (
-                  <td className="w-1/4 text-xs md:text-base bg-slate-300 p-2 rounded-md">
-                    Rp. {item.cost}
-                  </td>
-                )}
-              </>
-            ) : (
-              <>
-                <td className="w-1/2 bg-slate-300 p-2 rounded-md">
-                  {item.title}
-                </td>
-                <td className="w-1/4  bg-slate-300 p-2 rounded-md">
-                  {item.amount}
-                </td>
-                {item.cost && (
-                  <td className="w-1/4 text-xs md:text-base bg-slate-300 p-2 rounded-md">
-                    Rp. {item.cost}
-                  </td>
-                )}
-              </>
+            {value.total_funds && (
+              <td className="w-1/4 p-2 rounded-md">{value.total_funds}</td>
             )}
           </tr>
-        </tbody>
-      ))}
+        ))}
+      </tbody>
     </table>
   );
 };
