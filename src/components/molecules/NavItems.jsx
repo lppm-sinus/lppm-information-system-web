@@ -5,7 +5,11 @@ export const Navitems = (props) => {
     <NavLink
       to={props.link}
       onClick={props.OnClick}
-      className={({ isActive }) => (isActive ? "font-bold" : "font-normal")}
+      className={({ isActive }) =>
+        isActive
+          ? "font-bold text-lppm_sekunder"
+          : "font-normal hover:font-semibold duration-100"
+      }
     >
       <h1>{props.title}</h1>
     </NavLink>

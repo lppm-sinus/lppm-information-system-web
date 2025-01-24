@@ -18,10 +18,7 @@ const ChartKin = (props) => {
 
   return (
     <div className="mt-5">
-      <ChartContainer
-        config={chartConfig}
-        className="min-h-96 max-h-[700px] w-full"
-      >
+      <ChartContainer config={chartConfig} className="h-96 w-full">
         <BarChart
           accessibilityLayer
           data={props.data}
