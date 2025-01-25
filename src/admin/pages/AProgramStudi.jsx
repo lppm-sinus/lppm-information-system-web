@@ -8,6 +8,7 @@ import { FaTrash } from "react-icons/fa6";
 import DeleteModal from "../components/molecules/DeleteModal";
 import Loader from "../components/atoms/Loader";
 import { Pagination } from "../components/molecules/Pagination";
+import { useToast } from "@/hooks/use-toast";
 
 const AProgramStudi = () => {
   const [dataProdi, setDataProdi] = useState([]);
@@ -17,11 +18,11 @@ const AProgramStudi = () => {
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const { toast } = useToast();
 
   const fetchProdi = async (url = "/api/study-programs?page=1", q = "") => {
     try {
       const newUrl = `${url}${url.includes("?") ? "&" : "?"}q=${q}`;
-      console.log("Fetching data from:", newUrl); // Debugging
       const res = await axios.get(newUrl, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -45,9 +46,11 @@ const AProgramStudi = () => {
       });
       setShowDeleteModal(false);
       fetchProdi();
+      console.log(res);
+
       toast({
         variant: "success",
-        description: res.data.message,
+        description: `${res.data.message}`,
       });
     } catch (err) {
       console.log(err);

@@ -104,7 +104,7 @@ const AddAuthor = () => {
               <div className="w-1/2">
                 <FormInput
                   label="Sinta ID"
-                  type="number"
+                  type="text"
                   name="sinta_id"
                   value={formData.sinta_id}
                   onChange={handleChange}
@@ -114,7 +114,7 @@ const AddAuthor = () => {
               <div className="w-1/2">
                 <FormInput
                   label="NIDN"
-                  type="number"
+                  type="text"
                   name="nidn"
                   value={formData.nidn}
                   onChange={handleChange}

@@ -61,6 +61,7 @@ const ASetting = () => {
       setPaginationLinks(url);
       setLoading(false);
       setError(null);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -135,7 +136,9 @@ const ASetting = () => {
                   <td className="p-2 py-4">{index + 1}</td>
                   <td className="p-2 py-4">{item.name}</td>
                   <td className="p-2 py-4">
-                    {item.description ?? item.link_url}
+                    {item.description === null || item.description === "null"
+                      ? item.link_url
+                      : item.description}
                   </td>
                   <td className="p-2 py-4 flex gap-2 cursor-pointer text-center w-fit">
                     <Link
