@@ -27,16 +27,24 @@ const PusatStdy = () => {
       {loading ? (
         <SkeletonText />
       ) : (
-        pusatStudi.map((item) => (
-          <div className="w-full h-full p-4" key={item.id}>
-            <div className="lg:px-20">
-              <div
-                className="my-5 flex flex-col gap-4 custom-html-styles"
-                dangerouslySetInnerHTML={{ __html: item.container }}
-              ></div>
+        <>
+          {pusatStudi.length <= 0 ? (
+            <div className="w-full min-h-screen flex justify-center items-center text-slate-400">
+              <h1>Maaf Halaman Ini Masih Kosong</h1>
             </div>
-          </div>
-        ))
+          ) : (
+            pusatStudi.map((item) => (
+              <div className="w-full h-full p-4" key={item.id}>
+                <div className="lg:px-20">
+                  <div
+                    className="my-5 flex flex-col gap-4 custom-html-styles"
+                    dangerouslySetInnerHTML={{ __html: item.container }}
+                  ></div>
+                </div>
+              </div>
+            ))
+          )}
+        </>
       )}
     </div>
   );

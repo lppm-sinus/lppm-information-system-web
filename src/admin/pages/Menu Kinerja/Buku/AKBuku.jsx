@@ -102,7 +102,7 @@ const AKBuku = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleExportExcel = async () => {
     try {
       const res = await axios.get("/api/books/export", {
         responseType: "blob",
@@ -163,7 +163,8 @@ const AKBuku = () => {
         <ActionPages
           kinerja={true}
           setShowImportModal={setShowImportModal}
-          export={handleExport}
+          export={true}
+          exportExcel={handleExportExcel}
           search={true}
           value={search}
           setValue={setSearch}

@@ -27,6 +27,7 @@ const AddHKI = () => {
     reception_date: new Date().toISOString().slice(0, 10).split("T")[0],
     nomor_registrasi: "",
     tanggal_registrasi: new Date().toISOString().slice(0, 10).split("T")[0],
+    dokumen_pendukung: "",
     authors: [],
   });
 
@@ -83,6 +84,7 @@ const AddHKI = () => {
         reception_date: new Date().toISOString().slice(0, 10).split("T")[0],
         nomor_registrasi: "",
         tanggal_registrasi: new Date().toISOString().slice(0, 10).split("T")[0],
+        dokumen_pendukung: "",
         authors: [],
       });
       setSelectedAuthors([]);
@@ -221,6 +223,16 @@ const AddHKI = () => {
             onChange={handleChange}
             error={error?.tanggal_registrasi}
           />
+          <span className="col-span-2">
+            <FormInput
+              label="Dokumen Pendukung"
+              name="dokumen_pendukung"
+              type="file"
+              value={formData.dokumen_pendukung || ""}
+              onChange={handleChange}
+              error={error?.dokumen_pendukung}
+            />
+          </span>
           <AuthorOption
             authors={authors}
             selectedAuthors={selectedAuthors}

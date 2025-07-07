@@ -7,8 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 import AdminPageLayout from "@/admin/components/molecules/AdminPageLayout";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-
 const AddUser = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -7,6 +7,7 @@ import AuthorOption from "@/admin/components/molecules/AuthorOption";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPubScopus = () => {
@@ -25,6 +26,7 @@ const EditPubScopus = () => {
     publication_name: "",
     year: "",
     citation: "",
+    dokumen_pendukung: "",
     authors: [],
   });
   let navigate = useNavigate();
@@ -178,7 +180,35 @@ const EditPubScopus = () => {
               error={error?.title}
             />
           </span>
-
+          <div className="col-span-2">
+            <div className="flex items-center gap-2 w-full">
+              <span
+                className={`${
+                  dataPubScopus.dokumen_pendukung ? "w-[90%]" : "w-full"
+                }`}
+              >
+                <FormInput
+                  label="Dokumen Pendukung"
+                  name="dokumen_pendukung"
+                  type="file"
+                  value={formData.dokumen_pendukung || ""}
+                  onChange={handleChange}
+                  error={error?.dokumen_pendukung}
+                />
+              </span>
+              <span
+                className={`${
+                  dataPubScopus.dokumen_pendukung
+                    ? "w-[10%] mt-7 block"
+                    : "hidden"
+                }`}
+              >
+                <span className="flex items-center justify-center h-12 w-1/2 border border-gray-300 bg-gray-50 rounded-lg">
+                  <FaEye />
+                </span>
+              </span>
+            </div>
+          </div>
           <AuthorOption
             authors={authors}
             selectedAuthors={selectedAuthors}

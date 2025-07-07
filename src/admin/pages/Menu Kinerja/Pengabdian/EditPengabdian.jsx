@@ -8,6 +8,7 @@ import AuthorOption from "@/admin/components/molecules/AuthorOption";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPengabdian = () => {
@@ -40,6 +41,7 @@ const EditPengabdian = () => {
     kategori_sumber_dana: "",
     negara_sumber_dana: "",
     sumber_dana: "",
+    dokumen_pendukung: "",
     author_members: [],
   });
 
@@ -353,6 +355,31 @@ const EditPengabdian = () => {
             onChange={handleChange}
             error={error?.thn_usulan_kegiatan}
           />
+          <div className="col-span-2">
+            <div className="flex items-center gap-2 w-full">
+              <span
+                className={`${data.dokumen_pendukung ? "w-[90%]" : "w-full"}`}
+              >
+                <FormInput
+                  label="Dokumen Pendukung"
+                  name="dokumen_pendukung"
+                  type="file"
+                  value={formData.dokumen_pendukung || ""}
+                  onChange={handleChange}
+                  error={error?.dokumen_pendukung}
+                />
+              </span>
+              <span
+                className={`${
+                  data.dokumen_pendukung ? "w-[10%] mt-7 block" : "hidden"
+                }`}
+              >
+                <span className="flex items-center justify-center h-12 w-1/2 border border-gray-300 bg-gray-50 rounded-lg">
+                  <FaEye />
+                </span>
+              </span>
+            </div>
+          </div>
           <span className="col-span-2">
             <AuthorOption
               authors={authors}

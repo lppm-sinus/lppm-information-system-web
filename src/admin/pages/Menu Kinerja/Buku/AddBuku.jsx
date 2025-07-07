@@ -21,6 +21,7 @@ const AddBuku = () => {
     tempat_terbit: "",
     penerbit: "",
     page: "",
+    dokumen_pendukung: "",
     authors: [],
   });
 
@@ -71,6 +72,7 @@ const AddBuku = () => {
         tempat_terbit: "",
         penerbit: "",
         page: "",
+        dokumen_pendukung: "",
         authors: [],
       });
       setSelectedAuthors([]);
@@ -165,6 +167,16 @@ const AddBuku = () => {
             onChange={handleChange}
             error={error?.penerbit}
           />
+          <span className="col-span-2">
+            <FormInput
+              label="Dokumen Pendukung"
+              name="dokumen_pendukung"
+              type="file"
+              value={formData.dokumen_pendukung || ""}
+              onChange={handleChange}
+              error={error?.dokumen_pendukung}
+            />
+          </span>
           <AuthorOption
             authors={authors}
             selectedAuthors={selectedAuthors}

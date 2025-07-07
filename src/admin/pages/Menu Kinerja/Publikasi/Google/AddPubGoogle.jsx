@@ -22,6 +22,7 @@ const AddPubGoogle = () => {
     journal: "",
     year: "",
     citation: "",
+    dokumen_pendukung: "",
     authors: [],
   });
 
@@ -69,6 +70,7 @@ const AddPubGoogle = () => {
         journal: "",
         year: "",
         citation: "",
+        dokumen_pendukung: "",
         authors: [],
       });
       setSelectedAuthors([]);
@@ -147,7 +149,16 @@ const AddPubGoogle = () => {
               error={error?.title}
             />
           </span>
-
+          <span className="col-span-2">
+            <FormInput
+              label="Dokumen Pendukung"
+              name="dokumen_pendukung"
+              type="file"
+              value={formData.dokumen_pendukung || ""}
+              onChange={handleChange}
+              error={error?.dokumen_pendukung}
+            />
+          </span>
           <AuthorOption
             authors={authors}
             selectedAuthors={selectedAuthors}

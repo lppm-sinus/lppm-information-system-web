@@ -103,7 +103,7 @@ const AKPengabdian = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleExportExcel = async () => {
     try {
       const res = await axios.get("/api/services/export", {
         responseType: "blob",
@@ -164,7 +164,8 @@ const AKPengabdian = () => {
           kinerja={true}
           link="/admin/pages-kinerja/add-pengabdian"
           setShowImportModal={setShowImportModal}
-          export={handleExport}
+          export={true}
+          exportExcel={handleExportExcel}
           search={true}
           value={search}
           setValue={setSearch}

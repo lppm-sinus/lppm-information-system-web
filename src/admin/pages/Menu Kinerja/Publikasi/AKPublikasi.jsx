@@ -121,7 +121,7 @@ const AKPublikasi = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleExportExcel = async () => {
     try {
       const res = await axios.get("/api/publications/export", {
         responseType: "blob",
@@ -209,7 +209,8 @@ const AKPublikasi = () => {
           parent={true}
           data={menuPublikasi}
           setShowImportModal={setShowImportModal}
-          export={handleExport}
+          export={true}
+          exportExcel={handleExportExcel}
           search={true}
           value={search}
           setValue={setSearch}

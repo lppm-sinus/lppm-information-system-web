@@ -74,6 +74,7 @@ const AddPengabdian = () => {
     kategori_sumber_dana: "",
     negara_sumber_dana: "",
     sumber_dana: "",
+    dokumen_pendukung: "",
     author_members: [],
   });
 
@@ -110,6 +111,7 @@ const AddPengabdian = () => {
         kategori_sumber_dana: "",
         negara_sumber_dana: "",
         sumber_dana: "",
+        dokumen_pendukung: "",
         author_members: [],
       });
       setSelectedAuthors([]);
@@ -337,6 +339,16 @@ const AddPengabdian = () => {
             onChange={handleChange}
             error={error?.thn_usulan_kegiatan}
           />
+          <span className="col-span-2">
+            <FormInput
+              label="Dokumen Pendukung"
+              name="dokumen_pendukung"
+              type="file"
+              value={formData.dokumen_pendukung || ""}
+              onChange={handleChange}
+              error={error?.dokumen_pendukung}
+            />
+          </span>
           <span className="col-span-2">
             <AuthorOption
               authors={authors}
