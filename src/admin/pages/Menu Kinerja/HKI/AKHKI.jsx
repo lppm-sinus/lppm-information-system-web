@@ -102,7 +102,7 @@ const AKHKI = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleExportExcel = async () => {
     try {
       const res = await axios.get("/api/hki/export", {
         responseType: "blob",
@@ -162,7 +162,8 @@ const AKHKI = () => {
         <ActionPages
           kinerja={true}
           setShowImportModal={setShowImportModal}
-          export={handleExport}
+          export={true}
+          exportExcel={handleExportExcel}
           search={true}
           value={search}
           setValue={setSearch}

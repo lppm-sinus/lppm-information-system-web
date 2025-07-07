@@ -9,7 +9,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
 const EditUser = () => {
   const { id } = useParams();
   const [getUser, setGetUser] = useState([]);

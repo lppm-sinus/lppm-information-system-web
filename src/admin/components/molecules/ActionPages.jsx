@@ -6,6 +6,8 @@ import {
   FaPlus,
   FaAngleDown,
   FaAngleUp,
+  FaRegFileExcel,
+  FaRegFilePdf,
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -14,6 +16,10 @@ const ActionPages = (props) => {
   const [openFilter, setOpenFilter] = useState(false);
   const handleOpen = () => {
     setOpenMenu(!openMenu);
+  };
+  const [openExport, setOpenExport] = useState(false);
+  const handleOpenExport = () => {
+    setOpenExport(!openExport);
   };
 
   const handleInputSearch = (e) => {
@@ -101,14 +107,38 @@ const ActionPages = (props) => {
           {props.kinerja && (
             <>
               {props.export && (
-                <div
-                  onClick={() => props.export()}
-                  className="bg-lppm_premier text-lppm_white hover:bg-lppm_premier/90 w-28 flex gap-2 items-center px-4 py-2 rounded-md cursor-pointer transition-all duration-100"
-                >
-                  <CiExport />
-                  <h1>Export</h1>
+                <div className="relative">
+                  <div
+                    onClick={handleOpenExport}
+                    className="bg-lppm_premier text-lppm_white hover:bg-lppm_premier/90 w-36 flex justify-between items-center px-4 py-2 rounded-md cursor-pointer transition-all duration-100"
+                  >
+                    <span className="flex items-center gap-2">
+                      <CiExport />
+                      <h1>Export</h1>
+                    </span>
+                    {openExport ? <FaAngleUp /> : <FaAngleDown />}
+                  </div>
+                  {openExport && (
+                    <div className="absolute z-20 border-2 border-lppm_premier bg-lppm_premier text-white w-36 rounded mt-1 px-4 py-2 cursor-pointer">
+                      <div
+                        onClick={props.exportExcel}
+                        className="flex gap-2 items-center py-1.5 border-b-2 hover:text-lppm_sekunder hover:border-lppm_sekunder transition-all duration-150"
+                      >
+                        <FaRegFileExcel />
+                        <h1>Excel</h1>
+                      </div>
+                      <div
+                        onClick={props.exportPDF}
+                        className="flex gap-2 items-center py-1.5 border-b-2 hover:text-lppm_sekunder hover:border-lppm_sekunder transition-all duration-150"
+                      >
+                        <FaRegFilePdf />
+                        <h1>PDF</h1>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
+
               <div
                 onClick={() => props.setShowImportModal(true)}
                 className="bg-lppm_premier text-lppm_white hover:bg-lppm_premier/90 w-28 flex gap-2 items-center px-4 py-2 rounded-md cursor-pointer transition-all duration-100"

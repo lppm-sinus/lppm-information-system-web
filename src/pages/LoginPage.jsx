@@ -116,7 +116,6 @@ const LoginPage = () => {
                 className="w-3/4 text-end my-2 text-xs cursor-pointer hover:text-lppm_sekunder"
                 onClick={() => setShowModal(true)}
               >
-                {/* modal berisi pemberitahuan "silahkan menghubungi admin untuk reset password" */}
                 <p>Forget Password?</p>
               </div>
               <div className="w-3/4">

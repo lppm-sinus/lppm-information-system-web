@@ -50,12 +50,16 @@ const Banner = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="hidden group-hover:block absolute top-[10%] lg:top-[30%] -translate-x-0 translate-y-[50%] left-3 text-xl rounded-full p-2 bg-white hover:bg-gray-100 cursor-pointer">
-        <FaAngleLeft onClick={prevImage} size={30} />
-      </div>
-      <div className="hidden group-hover:block absolute top-[10%] lg:top-[30%] -translate-x-0 translate-y-[50%] right-3 text-xl rounded-full p-2 bg-white hover:bg-gray-100 cursor-pointer">
-        <FaAngleRight onClick={nextImage} size={30} />
-      </div>
+      {data.length > 1 && (
+        <>
+          <div className="hidden group-hover:block absolute top-[10%] lg:top-[30%] -translate-x-0 translate-y-[50%] left-3 text-xl rounded-full p-2 bg-white hover:bg-gray-100 cursor-pointer">
+            <FaAngleLeft onClick={prevImage} size={30} />
+          </div>
+          <div className="hidden group-hover:block absolute top-[10%] lg:top-[30%] -translate-x-0 translate-y-[50%] right-3 text-xl rounded-full p-2 bg-white hover:bg-gray-100 cursor-pointer">
+            <FaAngleRight onClick={nextImage} size={30} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

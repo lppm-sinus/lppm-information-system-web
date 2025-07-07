@@ -30,28 +30,36 @@ const Publikasi = () => {
       {loading ? (
         <SkeletonMedia />
       ) : (
-        <div className="w-full h-full p-4 lg:px-20">
-          <h1 className="font-semibold text-2xl text-center mb-5">
-            {publikasi[0]?.page_title}
-          </h1>
-          <div className="w-full mt-5 flex flex-col gap-5">
-            {publikasi.map((item) => (
-              <div key={item.id} className="relative">
-                <News
-                  img={`/api/storage/${item.image_url}`}
-                  title={item.title}
-                  container={
-                    item.container.length > 150
-                      ? `${item.container.substring(0, 150)}...`
-                      : item.container
-                  }
-                  button="Detail Jurnal"
-                  url={item.link_url}
-                />
+        <>
+          {publikasi.length <= 0 ? (
+            <div className="w-full min-h-screen flex justify-center items-center text-slate-400">
+              <h1>Maaf Halaman Ini Masih Kosong</h1>
+            </div>
+          ) : (
+            <div className="w-full h-full p-4 lg:px-20">
+              <h1 className="font-semibold text-2xl text-center mb-5">
+                {publikasi[0]?.page_title}
+              </h1>
+              <div className="w-full mt-5 flex flex-col gap-5">
+                {publikasi.map((item) => (
+                  <div key={item.id} className="relative">
+                    <News
+                      img={`/api/storage/${item.image_url}`}
+                      title={item.title}
+                      container={
+                        item.container.length > 150
+                          ? `${item.container.substring(0, 150)}...`
+                          : item.container
+                      }
+                      button="Detail Jurnal"
+                      url={item.link_url}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

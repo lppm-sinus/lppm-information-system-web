@@ -28,17 +28,23 @@ const Sejarah = () => {
         <SkeletonText />
       ) : (
         <>
-          {sejarah.map((item, index) => (
-            <div key={item.id} className="w-full h-full p-4 lg:px-20">
-              <h1 className="font-semibold text-2xl text-center">
-                {item.title}
-              </h1>
-              <div
-                className="text-justify mt-5 custom-html-styles"
-                dangerouslySetInnerHTML={{ __html: item.container }}
-              ></div>
+          {sejarah.length <= 0 ? (
+            <div className="w-full min-h-screen flex justify-center items-center text-slate-400">
+              <h1>Maaf Halaman Ini Masih Kosong</h1>
             </div>
-          ))}
+          ) : (
+            sejarah.map((item) => (
+              <div key={item.id} className="w-full h-full p-4 lg:px-20">
+                <h1 className="font-semibold text-2xl text-center">
+                  {item.title}
+                </h1>
+                <div
+                  className="text-justify mt-5 custom-html-styles"
+                  dangerouslySetInnerHTML={{ __html: item.container }}
+                ></div>
+              </div>
+            ))
+          )}
         </>
       )}
     </div>

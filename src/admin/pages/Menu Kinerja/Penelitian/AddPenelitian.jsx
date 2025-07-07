@@ -74,6 +74,7 @@ const AddPenelitian = () => {
     kategori_sumber_dana: "",
     negara_sumber_dana: "",
     sumber_dana: "",
+    dokumen_pendukung: "",
     author_members: [],
   });
 
@@ -81,6 +82,8 @@ const AddPenelitian = () => {
     e.preventDefault();
 
     try {
+      // console.log(formData);
+
       const res = await axios.post("/api/researches", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -111,6 +114,7 @@ const AddPenelitian = () => {
         kategori_sumber_dana: "",
         negara_sumber_dana: "",
         sumber_dana: "",
+        dokumen_pendukung: "",
         author_members: [],
       });
       setSelectedAuthors([]);
@@ -163,14 +167,15 @@ const AddPenelitian = () => {
         </div>
         <div className="grid grid-cols-2 gap-2 bg-white p-4 rounded-lg">
           <OptionLeader authors={authors} onLeaderSelect={addLeader} />
-
           <FormInput
-            label="KD PT Ketua"
-            name="kd_pt_ketua"
+            isDisabled={selectedLeader !== null}
+            disable={true}
+            label="NIDN Ketua"
+            name="nidn_ketua"
             type="text"
-            value={formData.kd_pt_ketua || ""}
+            value={formData.nidn_ketua || ""}
             onChange={handleChange}
-            error={error?.kd_pt_ketua}
+            error={error?.nidn_ketua}
           />
           <FormInput
             isDisabled={selectedLeader !== null}
@@ -181,15 +186,14 @@ const AddPenelitian = () => {
             onChange={handleChange}
             error={error?.nama_ketua}
           />
+
           <FormInput
-            isDisabled={selectedLeader !== null}
-            disable={true}
-            label="NIDN Ketua"
-            name="nidn_ketua"
+            label="KD PT Ketua"
+            name="kd_pt_ketua"
             type="text"
-            value={formData.nidn_ketua || ""}
+            value={formData.kd_pt_ketua || ""}
             onChange={handleChange}
-            error={error?.nidn_ketua}
+            error={error?.kd_pt_ketua}
           />
           <FormInput
             label="Afiliasi Ketua"
@@ -338,6 +342,16 @@ const AddPenelitian = () => {
             onChange={handleChange}
             error={error?.thn_usulan_kegiatan}
           />
+          <span className="col-span-2">
+            <FormInput
+              label="Dokumen Pendukung"
+              name="dokumen_pendukung"
+              type="file"
+              value={formData.dokumen_pendukung || ""}
+              onChange={handleChange}
+              error={error?.dokumen_pendukung}
+            />
+          </span>
           <span className="col-span-2">
             <AuthorOption
               authors={authors}

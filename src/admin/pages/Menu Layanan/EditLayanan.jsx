@@ -3,10 +3,12 @@ import FormInput from "@/admin/components/atoms/FormInput";
 import FormRadioBtn from "@/admin/components/atoms/FormRadioBtn";
 import Loader from "@/admin/components/atoms/Loader";
 import AdminPageLayout from "@/admin/components/molecules/AdminPageLayout";
+import ModalDocument from "@/admin/components/molecules/ModalDocument";
 import MyTextEditor from "@/admin/components/molecules/MyTextEditor";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditLayanan = () => {
@@ -14,6 +16,7 @@ const EditLayanan = () => {
   const [selectedService, setSelectedService] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [previewDoc, setPreviewDoc] = useState(null);
   let navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -93,60 +96,84 @@ const EditLayanan = () => {
     );
   }
 
-  return (
-    <AdminPageLayout>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="flex justify-between  mb-5">
-          <h2 className="text-xl font-bold mb-4">Edit Data Layanan</h2>
+  console.log(selectedService);
 
-          {/* Button */}
-          <div className="flex gap-5 items-center w-1/6">
+  return (
+    <>
+      <AdminPageLayout>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="flex justify-between  mb-5">
+            <h2 className="text-xl font-bold mb-4">Edit Data Layanan</h2>
+
             {/* Button */}
-            <BtnSubmit name="Simpan" />
-          </div>
-        </div>
-        <div className="w-full mt-5 bg-white rounded-lg py-2 px-6 shadow-lg">
-          <div className="flex justify-between gap-5 w-full">
-            <div className="w-1/2">
-              <FormInput
-                label="title"
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                error={error?.title}
-              />
-            </div>
-            <div className="w-1/2">
-              <FormRadioBtn
-                label="Status"
-                options={optionStatus}
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                error={error?.status}
-              />
+            <div className="flex gap-5 items-center w-1/6">
+              {/* Button */}
+              <BtnSubmit name="Simpan" />
             </div>
           </div>
-          <FormInput
-            label="Upload File"
-            type="file"
-            name="file"
-            onChange={handleChange}
-            error={error?.file}
-          />
-          <MyTextEditor
-            initialContent={formData.container}
-            onChange={(value) => {
-              setFormData((prevData) => ({
-                ...prevData,
-                container: value,
-              }));
-            }}
-          />
-        </div>
-      </form>
-    </AdminPageLayout>
+          <div className="w-full mt-5 bg-white rounded-lg py-2 px-6 shadow-lg">
+            <div className="flex justify-between gap-5 w-full">
+              <div className="w-1/2">
+                <FormInput
+                  label="title"
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  error={error?.title}
+                />
+              </div>
+              <div className="w-1/2">
+                <FormRadioBtn
+                  label="Status"
+                  options={optionStatus}
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  error={error?.status}
+                />
+              </div>
+            </div>
+            <div className="flex w-full gap-4">
+              <span className="w-[90%]">
+                <FormInput
+                  label="Upload File"
+                  type="file"
+                  name="file"
+                  onChange={handleChange}
+                  error={error?.file}
+                />
+              </span>
+              <span className="w-[10%] flex items-end mb-4">
+                <button
+                  type="button"
+                  className="flex items-center justify-center h-12 w-1/2 border border-gray-300 bg-gray-50 rounded-lg"
+                  onClick={() => setPreviewDoc(true)}
+                >
+                  <FaEye />
+                </button>
+              </span>
+            </div>
+
+            <MyTextEditor
+              initialContent={formData.container}
+              onChange={(value) => {
+                setFormData((prevData) => ({
+                  ...prevData,
+                  container: value,
+                }));
+              }}
+            />
+          </div>
+        </form>
+      </AdminPageLayout>
+      <ModalDocument
+        isOpen={previewDoc}
+        onClose={() => setPreviewDoc(false)}
+        title="Dokumen Sekarang"
+        url={`https://lppm.sinus.ac.id/api/storage/${selectedService.file_url}`}
+      />
+    </>
   );
 };
 

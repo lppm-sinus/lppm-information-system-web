@@ -20,6 +20,8 @@ const AKPenelitian = () => {
   const [dataPenelitian, setDataPenelitian] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDoc, setShowDoc] = useState(false);
+  const [previewDoc, setPreviewDoc] = useState(null);
   const [links, setLinks] = useState([]);
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [search, setSearch] = useState("");
@@ -107,7 +109,7 @@ const AKPenelitian = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleExportExcel = async () => {
     try {
       const res = await axios.get("/api/researches/export", {
         responseType: "blob",
@@ -171,7 +173,8 @@ const AKPenelitian = () => {
           kinerja={true}
           link="/admin/pages-kinerja/add-penelitian"
           setShowImportModal={setShowImportModal}
-          export={handleExport}
+          export={true}
+          exportExcel={handleExportExcel}
           search={true}
           value={search}
           setValue={setSearch}
@@ -181,6 +184,8 @@ const AKPenelitian = () => {
           setSelectedId={setSelectedId}
           editPage="/admin/pages-kinerja/edit-penelitian/"
           setShowDeleteModal={setShowDeleteModal}
+          setShowDoc={setShowDoc}
+          setPreviewDoc={setPreviewDoc}
         />
         {links?.length > 3 && (
           <div className="mt-2">
@@ -199,6 +204,7 @@ const AKPenelitian = () => {
         onConfirm={handleDelete}
         itemId={selectedId}
       />
+      {showDoc && console.log(previewDoc)}
       <ImportModal
         isOpen={showImportModal}
         onClose={() => setShowImportModal(false)}

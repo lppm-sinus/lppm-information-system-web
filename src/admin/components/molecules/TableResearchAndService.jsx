@@ -1,7 +1,10 @@
+import { useToast } from "@/hooks/use-toast";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const TableResearchAndService = (props) => {
+  const { toast } = useToast();
   return (
     <div className="max-w-screen relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -124,6 +127,25 @@ const TableResearchAndService = (props) => {
                 ))}
               </td>
               <td className="px-6 py-3 flex gap-2">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    props.setShowDoc(true);
+
+                    //props.setPreviewDoc(item.file_url);
+                    item.authors.length > 0
+                      ? props.setPreviewDoc(item.authors)
+                      : toast({
+                          variant: "destructive",
+                          description: `Dokumen tidak ditemukan`,
+                        });
+                  }}
+                >
+                  <button className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-lppm_premier hover:bg-lppm_premier/90 text-white">
+                    <FaEye />
+                    <span>Dokumen</span>
+                  </button>
+                </span>
                 <Link to={`${props.editPage}${item.id}`}>
                   <button className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-[#127d91] hover:bg-[#127d91]/90 text-white">
                     <FaRegEdit />

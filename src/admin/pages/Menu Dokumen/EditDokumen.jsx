@@ -86,15 +86,25 @@ const EditDokumen = () => {
   };
 
   const handleChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFormData({ ...formData, [e.target.name]: selectedFile });
-      const fileURL = URL.createObjectURL(selectedFile);
-      setFilePreview(fileURL);
+    if (e.target.type === "file") {
+      const selectedFile = e.target.files[0];
+      if (selectedFile) {
+        setFormData({ ...formData, [e.target.name]: selectedFile });
+        const fileURL = URL.createObjectURL(selectedFile);
+        setFilePreview(fileURL);
+      }
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (filePreview) {
+        URL.revokeObjectURL(filePreview);
+      }
+    };
+  }, [filePreview]);
 
   if (loading) {
     return (
@@ -131,11 +141,6 @@ const EditDokumen = () => {
             onChange={handleChange}
             error={error?.status}
           />
-          {/* <FileViewer
-            fileType="pdf"
-            filePath={dataDokumen.file_url}
-            errorComponent={() => <p>Error loading file</p>}
-          /> */}
           <FormInput
             label="Upload File"
             type="file"

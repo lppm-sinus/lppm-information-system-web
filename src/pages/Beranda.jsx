@@ -208,34 +208,46 @@ const Beranda = () => {
         </div>
 
         <div className="relative md:ml-8 lg:ml-16 flex items-center overflow-x-auto">
-          {kegiatan?.map((data) => (
-            <div key={data.id} className="inline-block p-4">
-              <div className="w-52 lg:w-64 h-64 hover:scale-100 ease-in-out duration-100 transition-all cursor-default">
-                <Card
-                  title={data.title}
-                  container={
-                    data.container.length > 150
-                      ? `${data.container.substring(0, 150)}...`
-                      : data.container
-                  }
-                />
-              </div>
+          {kegiatan.length <= 0 ? (
+            <div className="w-full h-40 flex justify-center items-center text-slate-400">
+              <h1>Belom ada kegiatan yang dilaksanakan</h1>
             </div>
-          ))}
+          ) : (
+            kegiatan?.map((data) => (
+              <div key={data.id} className="inline-block p-4">
+                <div className="w-52 lg:w-64 h-64 hover:scale-100 ease-in-out duration-100 transition-all cursor-default">
+                  <Card
+                    title={data.title}
+                    container={
+                      data.container.length > 150
+                        ? `${data.container.substring(0, 150)}...`
+                        : data.container
+                    }
+                  />
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
       <div className="mt-5 p-4 md:px-10 lg:px-20">
         <h1 className="font-semibold text-2xl">Berita </h1>
-        {berita.map((data) => (
-          <div key={data.id}>
-            <News
-              img={`/api/storage/${data.image_url}`}
-              title={data.title}
-              desc={data.container}
-            />
+        {berita.length <= 0 ? (
+          <div className="w-full h-40 flex justify-center items-center text-slate-400">
+            <h1>Belom ada berita saat ini</h1>
           </div>
-        ))}
+        ) : (
+          berita.map((data) => (
+            <div key={data.id}>
+              <News
+                img={`/api/storage/${data.image_url}`}
+                title={data.title}
+                desc={data.container}
+              />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -188,7 +188,7 @@ const AddAuthor = () => {
                   onChange={handleProdiChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-fit p-2.5"
                 >
-                  <option value="">Select Prodi</option>
+                  <option value=""> --- Select Program Studi ---</option>
                   {prodi.map((prodi) => (
                     <option key={prodi.id} value={prodi.id}>
                       {prodi.name}
