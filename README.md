@@ -17,10 +17,10 @@ Aplikasi web ini dirancang untuk memfasilitasi pengelolaan kegiatan penelitian d
 
 Proyek ini dibangun dengan teknologi modern:
 
-- **Frontend Framework**: React.js
+- **Frontend Framework**: Vite+React.js
 - **Build Tool**: Vite
-- **Language**: JavaScript/TypeScript
-- **Styling**: CSS/SCSS
+- **Language**: JavaScript
+- **Styling**: TailwindCss
 - **Development**: Hot Module Replacement (HMR)
 - **Code Quality**: ESLint
 
