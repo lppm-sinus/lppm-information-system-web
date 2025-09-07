@@ -11,11 +11,12 @@ import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa6";
+import { FaRegEye, FaTrash } from "react-icons/fa6";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdOutlineSimCardDownload } from "react-icons/md";
 import { Link } from "react-router-dom";
 import template_buku from "@/assets/template/book.xlsx";
+import ModalDocument from "../../../components/molecules/ModalDocument";
 
 const AKBuku = () => {
   const [dataBuku, setDataBuku] = useState([]);
@@ -27,6 +28,8 @@ const AKBuku = () => {
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [search, setSearch] = useState("");
   const { toast } = useToast();
+  const [showDoc, setShowDoc] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
   const [formDataModal, setFormDataModal] = useState({
     file: "",
     reset_table: false,
@@ -230,6 +233,23 @@ const AKBuku = () => {
                     ))}
                   </td>
                   <td className="px-6 py-3 flex gap-2">
+                    <span
+                      className="px-3 py-2 text-sm cursor-pointer rounded-md flex gap-1 items-center space-x-1 bg-lppm_premier hover:bg-lppm_premier/90 text-white"
+                      onClick={() => {
+                        if (item.file_path && item.file_path.length > 0) {
+                          setShowDoc(true);
+                          setSelectedDoc(item.file_path);
+                        } else {
+                          toast({
+                            variant: "destructive",
+                            description: `Dokumen tidak ditemukan`,
+                          });
+                        }
+                      }}
+                    >
+                      <FaRegEye />
+                      Dokumen
+                    </span>
                     <Link to={`/admin/pages-kinerja/edit-buku/${item.id}`}>
                       <button className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-[#127d91] hover:bg-[#127d91]/90 text-white">
                         <FaRegEdit />
@@ -270,6 +290,16 @@ const AKBuku = () => {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDelete}
         itemId={selectedId}
+      />
+      <ModalDocument
+        isOpen={showDoc}
+        onClose={() => setShowDoc(false)}
+        title="Preview Dokumen"
+        url={
+          selectedDoc
+            ? `https://lppm.sinus.ac.id/api/storage/${selectedDoc}`
+            : ""
+        }
       />
       <ImportModal
         isOpen={showImportModal}

@@ -18,6 +18,7 @@ import { MdOutlineSimCardDownload } from "react-icons/md";
 import template_google from "@/assets/template/google.xlsx";
 import template_scopus from "@/assets/template/scopus.xlsx";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import ModalDocument from "../../../components/molecules/ModalDocument";
 
 const AKPublikasi = () => {
   const [dataPublikasi, setDataPublikasi] = useState([]);
@@ -31,6 +32,8 @@ const AKPublikasi = () => {
   const [links, setLinks] = useState([]);
   const [paginationLinks, setPaginationLinks] = useState([]);
   const { toast } = useToast();
+  const [showDoc, setShowDoc] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
   const [formDataModal, setFormDataModal] = useState({
     category: "",
     file: "",
@@ -228,6 +231,8 @@ const AKPublikasi = () => {
             editPage="/admin/pages-kinerja/publikasi/edit-pubication-google/"
             setSelectedId={setSelectedId}
             setShowDeleteModal={setShowDeleteModal}
+            setShowPreviewDoc={setShowDoc}
+            setSelectedFile={setSelectedDoc}
           />
         ) : (
           <TablePublicationScopus
@@ -235,6 +240,8 @@ const AKPublikasi = () => {
             editPage="/admin/pages-kinerja/publikasi/edit-pubication-scopus/"
             setSelectedId={setSelectedId}
             setShowDeleteModal={setShowDeleteModal}
+            setShowPreviewDoc={setShowDoc}
+            setSelectedFile={setSelectedDoc}
           />
         )}
         {links?.length > 3 && (
@@ -253,6 +260,16 @@ const AKPublikasi = () => {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDelete}
         itemId={selectedId}
+      />
+      <ModalDocument
+        isOpen={showDoc}
+        onClose={() => setShowDoc(false)}
+        title="Preview Dokumen"
+        url={
+          selectedDoc
+            ? `https://lppm.sinus.ac.id/api/storage/${selectedDoc}`
+            : ""
+        }
       />
       <ImportModal
         isOpen={showImportModal}

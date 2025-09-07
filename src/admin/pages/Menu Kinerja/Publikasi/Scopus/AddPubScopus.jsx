@@ -23,7 +23,7 @@ const AddPubScopus = () => {
     publication_name: "",
     year: "",
     citation: "",
-    dokumen_pendukung: "",
+    file: null,
     authors: [],
   });
 
@@ -57,9 +57,26 @@ const AddPubScopus = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let submitForm = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === "file") {
+        if (formData.file) {
+          submitForm.append("file", formData.file);
+        }
+      } else if (key === "authors") {
+        if (Array.isArray(formData.authors)) {
+          formData.authors.forEach((member, index) => {
+            submitForm.append(`authors[${index}]`, JSON.stringify(member));
+          });
+        }
+      } else {
+        submitForm.append(key, formData[key]);
+      }
+    });
     try {
-      const res = await axios.post("/api/publications", formData, {
+      const res = await axios.post("/api/publications", submitForm, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -72,7 +89,7 @@ const AddPubScopus = () => {
         publication_name: "",
         year: "",
         citation: "",
-        dokumen_pendukung: "",
+        file: null,
         authors: [],
       });
       setSelectedAuthors([]);
@@ -161,11 +178,11 @@ const AddPubScopus = () => {
           <span className="col-span-2">
             <FormInput
               label="Dokumen Pendukung"
-              name="dokumen_pendukung"
+              name="file"
               type="file"
-              value={formData.dokumen_pendukung || ""}
+              value={formData.file || ""}
               onChange={handleChange}
-              error={error?.dokumen_pendukung}
+              error={error?.file}
             />
           </span>
           <AuthorOption

@@ -132,16 +132,21 @@ const TableResearchAndService = (props) => {
                   onClick={() => {
                     props.setShowDoc(true);
 
-                    //props.setPreviewDoc(item.file_url);
-                    item.authors.length > 0
-                      ? props.setPreviewDoc(item.authors)
+                    item.file_path.length > 0
+                      ? props.setSelectedFile(item.file_path)
                       : toast({
                           variant: "destructive",
                           description: `Dokumen tidak ditemukan`,
                         });
                   }}
                 >
-                  <button className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-lppm_premier hover:bg-lppm_premier/90 text-white">
+                  <button
+                    className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-lppm_premier hover:bg-lppm_premier/90 text-white"
+                    onClick={() => {
+                      props.setShowPreviewDoc(true);
+                      props.setSelectedFile(item.file_path);
+                    }}
+                  >
                     <FaEye />
                     <span>Dokumen</span>
                   </button>

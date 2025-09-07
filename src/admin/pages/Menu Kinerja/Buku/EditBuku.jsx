@@ -26,7 +26,7 @@ const EditBuku = () => {
     tempat_terbit: "",
     penerbit: "",
     page: "",
-    dokumen_pendukung: "",
+    file: "",
     authors: [],
   });
   let navigate = useNavigate();
@@ -78,9 +78,28 @@ const EditBuku = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let submitForm = new FormData();
+    submitForm.append("_method", "PATCH");
+    Object.keys(formData).forEach((key) => {
+      if (key === "file") {
+        if (formData.file) {
+          submitForm.append("file", formData.file);
+        }
+      } else if (key === "authors") {
+        if (Array.isArray(formData.authors)) {
+          formData.authors.forEach((member, index) => {
+            submitForm.append(`authors[${index}]`, JSON.stringify(member));
+          });
+        }
+      } else {
+        submitForm.append(key, formData[key]);
+      }
+    });
+
     try {
-      const res = await axios.patch(`/api/books/${id}`, formData, {
+      const res = await axios.patch(`/api/books/${id}`, submitForm, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -191,24 +210,18 @@ const EditBuku = () => {
           />
           <div className="col-span-2">
             <div className="flex items-center gap-2 w-full">
-              <span
-                className={`${
-                  dataBuku.dokumen_pendukung ? "w-[90%]" : "w-full"
-                }`}
-              >
+              <span className={`${dataBuku.file ? "w-[90%]" : "w-full"}`}>
                 <FormInput
                   label="Dokumen Pendukung"
-                  name="dokumen_pendukung"
+                  name="file"
                   type="file"
-                  value={formData.dokumen_pendukung || ""}
+                  value={formData.file || ""}
                   onChange={handleChange}
-                  error={error?.dokumen_pendukung}
+                  error={error?.file}
                 />
               </span>
               <span
-                className={`${
-                  dataBuku.dokumen_pendukung ? "w-[10%] mt-7 block" : "hidden"
-                }`}
+                className={`${dataBuku.file ? "w-[10%] mt-7 block" : "hidden"}`}
               >
                 <span className="flex items-center justify-center h-12 w-1/2 border border-gray-300 bg-gray-50 rounded-lg">
                   <FaEye />

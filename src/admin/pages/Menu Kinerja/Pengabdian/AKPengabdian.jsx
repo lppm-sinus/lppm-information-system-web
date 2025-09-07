@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdOutlineSimCardDownload } from "react-icons/md";
 import template_service from "@/assets/template/service.xlsx";
+import ModalDocument from "@/admin/components/molecules/ModalDocument";
 
 const AKPengabdian = () => {
   const [dataPengabdian, setDataPengabdian] = useState([]);
@@ -25,6 +26,8 @@ const AKPengabdian = () => {
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [search, setSearch] = useState("");
   const { toast } = useToast();
+  const [showDoc, setShowDoc] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
   const [formDataModal, setFormDataModal] = useState({
     file: "",
     reset_table: false,
@@ -175,6 +178,8 @@ const AKPengabdian = () => {
           setSelectedId={setSelectedId}
           setShowDeleteModal={setShowDeleteModal}
           editPage="/admin/pages-kinerja/edit-pengabdian/"
+          setShowPreviewDoc={setShowDoc}
+          setSelectedFile={setSelectedDoc}
         />
         {links?.length > 3 && (
           <div className="mt-2">
@@ -192,6 +197,16 @@ const AKPengabdian = () => {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDelete}
         itemId={selectedId}
+      />
+      <ModalDocument
+        isOpen={showDoc}
+        onClose={() => setShowDoc(false)}
+        title="Preview Dokumen"
+        url={
+          selectedDoc
+            ? `https://lppm.sinus.ac.id/api/storage/${selectedDoc}`
+            : ""
+        }
       />
       <ImportModal
         isOpen={showImportModal}

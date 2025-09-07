@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdOutlineSimCardDownload } from "react-icons/md";
 import template_research from "@/assets/template/research.xlsx";
+import ModalDocument from "../../../components/molecules/ModalDocument";
 
 const AKPenelitian = () => {
   const [showImportModal, setShowImportModal] = useState(false);
@@ -21,7 +22,7 @@ const AKPenelitian = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDoc, setShowDoc] = useState(false);
-  const [previewDoc, setPreviewDoc] = useState(null);
+  const [selectedDoc, setSelectedDoc] = useState(null);
   const [links, setLinks] = useState([]);
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [search, setSearch] = useState("");
@@ -133,7 +134,11 @@ const AKPenelitian = () => {
         description: "File berhasil diunduh",
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      toast({
+        variant: "destructive",
+        description: `${err.message}`,
+      });
     }
   };
   const handleChange = (e) => {
@@ -184,8 +189,8 @@ const AKPenelitian = () => {
           setSelectedId={setSelectedId}
           editPage="/admin/pages-kinerja/edit-penelitian/"
           setShowDeleteModal={setShowDeleteModal}
-          setShowDoc={setShowDoc}
-          setPreviewDoc={setPreviewDoc}
+          setShowPreviewDoc={setShowDoc}
+          setSelectedFile={setSelectedDoc}
         />
         {links?.length > 3 && (
           <div className="mt-2">
@@ -204,7 +209,17 @@ const AKPenelitian = () => {
         onConfirm={handleDelete}
         itemId={selectedId}
       />
-      {showDoc && console.log(previewDoc)}
+      {/* {showDoc && console.log(previewDoc)} */}
+      <ModalDocument
+        isOpen={showDoc}
+        onClose={() => setShowDoc(false)}
+        title="Preview Dokumen"
+        url={
+          selectedDoc
+            ? `https://lppm.sinus.ac.id/api/storage/${selectedDoc}`
+            : ""
+        }
+      />
       <ImportModal
         isOpen={showImportModal}
         onClose={() => setShowImportModal(false)}

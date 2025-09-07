@@ -1,8 +1,11 @@
+import { useToast } from "@/hooks/use-toast";
 import { FaRegEdit } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa6";
+import { FaEye, FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const TablePublicationGoogle = (props) => {
+  const { toast } = useToast();
+
   return (
     <div className="max-w-screen relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -58,6 +61,30 @@ const TablePublicationGoogle = (props) => {
                 ))}
               </td>
               <td className="px-6 py-3 flex items-center gap-2 cursor-pointer">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    props.setShowDoc(true);
+
+                    item.file_path.length > 0
+                      ? props.setSelectedFile(item.file_path)
+                      : toast({
+                          variant: "destructive",
+                          description: `Dokumen tidak ditemukan`,
+                        });
+                  }}
+                >
+                  <button
+                    className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-lppm_premier hover:bg-lppm_premier/90 text-white"
+                    onClick={() => {
+                      props.setShowPreviewDoc(true);
+                      props.setSelectedFile(item.file_path);
+                    }}
+                  >
+                    <FaEye />
+                    <span>Dokumen</span>
+                  </button>
+                </span>
                 <Link to={`${props.editPage}${item.id}`}>
                   <button className="px-2 py-1.5 text-xs rounded-md flex items-center space-x-1 bg-[#127d91] hover:bg-[#127d91]/90 text-white">
                     <FaRegEdit />

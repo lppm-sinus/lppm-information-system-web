@@ -74,23 +74,40 @@ const AddPenelitian = () => {
     kategori_sumber_dana: "",
     negara_sumber_dana: "",
     sumber_dana: "",
-    dokumen_pendukung: "",
+    file: null,
     author_members: [],
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // console.log(formData);
+    let submitForm = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === "file") {
+        if (formData.file) {
+          submitForm.append("file", formData.file);
+        }
+      } else if (key === "author_members") {
+        if (Array.isArray(formData.author_members)) {
+          formData.author_members.forEach((member, index) => {
+            submitForm.append(
+              `author_members[${index}]`,
+              JSON.stringify(member)
+            );
+          });
+        }
+      } else {
+        submitForm.append(key, formData[key]);
+      }
+    });
 
-      const res = await axios.post("/api/researches", formData, {
+    try {
+      const res = await axios.post("/api/researches", submitForm, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      //res.data.message
       setError(null);
       setFormData({
         nama_ketua: "",
@@ -114,7 +131,7 @@ const AddPenelitian = () => {
         kategori_sumber_dana: "",
         negara_sumber_dana: "",
         sumber_dana: "",
-        dokumen_pendukung: "",
+        file: null,
         author_members: [],
       });
       setSelectedAuthors([]);
@@ -125,8 +142,8 @@ const AddPenelitian = () => {
         description: `${res.data.message}`,
       });
     } catch (err) {
-      setError(err.response.data.errors);
-      console.log(err);
+      setError(err.response?.data?.errors || err.message);
+      // console.log(err);
     }
   };
 
@@ -345,11 +362,11 @@ const AddPenelitian = () => {
           <span className="col-span-2">
             <FormInput
               label="Dokumen Pendukung"
-              name="dokumen_pendukung"
+              name="file"
               type="file"
-              value={formData.dokumen_pendukung || ""}
+              value={formData.file || ""}
               onChange={handleChange}
-              error={error?.dokumen_pendukung}
+              error={error?.file}
             />
           </span>
           <span className="col-span-2">
