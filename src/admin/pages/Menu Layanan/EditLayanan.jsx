@@ -171,7 +171,7 @@ const EditLayanan = () => {
         isOpen={previewDoc}
         onClose={() => setPreviewDoc(false)}
         title="Dokumen Sekarang"
-        url={`https://lppm.sinus.ac.id/api/storage/${selectedService.file_url}`}
+        url={`https://lppm.tsu.ac.id/api/storage/${selectedService.file_url}`}
       />
     </>
   );

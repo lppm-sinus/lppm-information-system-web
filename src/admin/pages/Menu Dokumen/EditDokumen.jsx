@@ -156,7 +156,7 @@ const EditDokumen = () => {
               pdfUrl={
                 loading
                   ? ""
-                  : `https://lppm.sinus.ac.id/api/storage/${dataDokumen.file_url}`
+                  : `https://lppm.tsu.ac.id/api/storage/${dataDokumen.file_url}`
               }
             />
           )}

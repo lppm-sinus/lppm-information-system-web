@@ -28,7 +28,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://lppm.sinus.ac.id",
+        target: "https://lppm.tsu.ac.id",
         changeOrigin: true,
         secure: false,
       },

@@ -296,9 +296,7 @@ const AKBuku = () => {
         onClose={() => setShowDoc(false)}
         title="Preview Dokumen"
         url={
-          selectedDoc
-            ? `https://lppm.sinus.ac.id/api/storage/${selectedDoc}`
-            : ""
+          selectedDoc ? `https://lppm.tsu.ac.id/api/storage/${selectedDoc}` : ""
         }
       />
       <ImportModal

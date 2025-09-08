@@ -130,7 +130,7 @@ const ADokumen = () => {
         title="Preview Dokumen"
         url={
           selectedFile
-            ? `https://lppm.sinus.ac.id/api/storage/${selectedFile}`
+            ? `https://lppm.tsu.ac.id/api/storage/${selectedFile}`
             : ""
         }
       />

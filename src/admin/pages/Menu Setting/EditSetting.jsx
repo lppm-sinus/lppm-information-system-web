@@ -137,7 +137,7 @@ const EditSetting = () => {
                     />
                   ) : (
                     <img
-                      src={`https://lppm.sinus.ac.id/api/storage/${data.image_path}`}
+                      src={`https://lppm.tsu.ac.id/api/storage/${data.image_path}`}
                       alt="Image Now"
                       className="w-60 h-20 object-cover rounded-md"
                     />
